@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  tasks:
+  - name: Create file
+    file:
+      state: touch
+      dest: /tmp/testfile
