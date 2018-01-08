@@ -1,0 +1,27 @@
+---
+
+- name: Install httpd Package
+  yum: 
+    name: httpd 
+    state: present
+
+- name: Open up firewall ports
+  firewalld: 
+    service: http 
+    permanent: true 
+    state: enabled 
+    immediate: yes
+
+- name: Start httpd service
+  service: 
+    name: httpd 
+    state: started 
+    enabled: yes
+
+- name: web content
+  lineinfile: 
+    dest: /var/www/html/index.html 
+    line: "{{ inventory_hostname }}" 
+    create: yes
+  notify:
+    - restart httpd
